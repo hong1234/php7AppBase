@@ -15,7 +15,14 @@ require_once 'UserApp.php';
             <h3>User List</h3>
             <br/>
             <div>
-            <?php $userService->printUsers();?>
+            <?php 
+               foreach ($userDao->getUsers() as $user) {
+                       echo $user['id'];?><br/>
+                 <?php echo $user['username'];?><br/>
+                 <?php echo $user['useremail'];?><br/>
+            <?php
+               }
+            ?>
             </div> 
     </body>
 </html>

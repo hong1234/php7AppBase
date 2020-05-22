@@ -116,13 +116,4 @@ class UserService
         return $this->userDao->insert($userArr);
     }
 
-    public function printUsers()
-    {
-        foreach ($this->userDao->getUsers() as $user) {
-            echo $user['id']."<br />";
-            echo $user['username']."<br />";
-            echo $user['useremail']."<br />";
-        }
-    }
-
 }
