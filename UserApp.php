@@ -21,7 +21,10 @@ class UserApp {
         }
         else if ( isset($_GET['logout']) ) {
             $this->logout();
-        } 
+        }
+        else if (explode('?', $_SERVER['REQUEST_URI'])[0]=='/showusers.php') {
+            $this->showusers();
+        }  
     }
 
     public function login() 
@@ -46,6 +49,13 @@ class UserApp {
     {
         $success = $this->userService->logout(); 
         header("Location: index.php");
+    }
+
+    public function showusers()
+    {
+        if (!$this->userService->logged_in) {
+            header("Location: login.php");
+        }
     }
 
 }
