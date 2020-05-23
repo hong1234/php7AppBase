@@ -12,3 +12,10 @@ CREATE TABLE `users` (
   UNIQUE KEY `useremail` (`useremail`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
+CREATE TABLE `joke` (
+`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`joketext` TEXT,
+`timestamp` int(11) unsigned NOT NULL,
+`userid` int(11) unsigned NOT NULL
+) DEFAULT CHARACTER SET utf8 ENGINE=InnoDB;
+

@@ -40,9 +40,6 @@ require_once 'UserApp.php';
             <?php
                }
             }
-            ?>   
-            
-        
-            
+            ?>      
     </body>
 </html>

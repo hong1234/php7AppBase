@@ -12,6 +12,7 @@ class UserService
     
     public $logged_in; 
 
+    private $userid;
     public $useremail;           
     public $username;  
     
@@ -38,6 +39,7 @@ class UserService
         // }
 
         $this->logged_in = false;
+        $this->userid = 0;
         $this->useremail = '';
         $this->username = '';
     }
@@ -63,6 +65,7 @@ class UserService
             if(!$userinfo){
                 return false;
             }
+            $this->userid = $userinfo['id'];
             $this->useremail = $userinfo['useremail'];
             $this->username = $userinfo['username'];
             return true;
@@ -92,6 +95,7 @@ class UserService
         if(!$userinfo){
             return false;
         }
+        $this->userid = $userinfo['id'];
         $this->useremail = $userinfo['useremail'];
         $this->username = $userinfo['username'];
 

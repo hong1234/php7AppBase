@@ -10,7 +10,7 @@ class UserDao extends BaseDao {
     }
 
     public function get($useremail) {
-        $statement = $this->db->prepare("SELECT * FROM users WHERE useremail = :useremail LIMIT 1 ");
+        $statement = $this->db->prepare("SELECT * FROM users WHERE useremail = :useremail LIMIT 1");
         $statement->bindParam(':useremail', $useremail);
         $statement->execute();
                 
@@ -66,7 +66,7 @@ class UserDao extends BaseDao {
     public function delete($uniqueKey) {}
 
     public function useremailTaken($useremail) {
-        $statement = $this->db->prepare("SELECT id FROM users WHERE useremail = :useremail LIMIT 1 ");
+        $statement = $this->db->prepare("SELECT id FROM users WHERE useremail = :useremail LIMIT 1");
         $statement->bindParam(':useremail', $useremail);
         $statement->execute(); 
         
@@ -75,7 +75,7 @@ class UserDao extends BaseDao {
 
     public function checkPassConfirmation($useremail, $password) {
         
-        $statement = $this->db->prepare("SELECT password FROM users WHERE useremail = :useremail LIMIT 1 ");
+        $statement = $this->db->prepare("SELECT password FROM users WHERE useremail = :useremail LIMIT 1");
         $statement->bindParam(':useremail', $useremail);
         $statement->execute();
                 
