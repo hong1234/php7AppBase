@@ -38,6 +38,15 @@ class UserValidator {
         $this->userDao = $userDao;
     }
 
+    public function validateSearchKey($field, $value) 
+    {
+        $valid = false;
+        if (!$this->isEmpty($field, $value)) {
+            $valid = $this->checkSize($field, $value, 3, 30); 
+        }
+        return $valid;
+    }
+
     public function validate($field, $value) 
     {
         $valid = false;

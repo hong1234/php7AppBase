@@ -104,6 +104,15 @@ class UserDao extends BaseDao {
     }
 
     /////////hong
+    public function searchByEmail($useremail) 
+    {
+        $statement = $this->db->prepare("SELECT * FROM users WHERE useremail LIKE :useremail");
+        $statement->bindValue(':useremail', '%'.$useremail.'%');
+        $statement->execute(); 
+        
+        return $statement->fetchAll();
+    }
+
     public function getUsers()
     {
         return $this->db->query("SELECT id, username, useremail FROM users")->fetchAll();

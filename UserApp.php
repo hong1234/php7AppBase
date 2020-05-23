@@ -11,6 +11,8 @@ class UserApp {
     const COOKIE_EXPIRE =  8640000;  //60*60*24*100 seconds = 100 days by default
     const COOKIE_PATH = "/";  //Available in whole domain
 
+    public $searchResult = array();
+
     public function __construct(UserService $userService, UserValidator $validator) 
     {
         $this->userService = $userService;
@@ -22,12 +24,26 @@ class UserApp {
         else if (isset($_POST['register'])) {
             $this->register();
         }
-        else if ( isset($_GET['logout']) ) {
+        else if (isset($_GET['logout'])) {
             $this->logout();
         }
         else if (explode('?', $_SERVER['REQUEST_URI'])[0]=='/showusers.php') {
             $this->authenCheck();
-        }  
+        } 
+        else if (explode('?', $_SERVER['REQUEST_URI'])[0]=='/usersearch.php') {
+            $this->authenCheck();
+            if (isset($_POST['usersearch'])){
+                $this->usersearch();
+            }
+        } 
+    }
+
+    public function usersearch()
+    {
+        $result = $this->userService->usersearch($_POST);
+        if($result) {
+            $this->searchResult = $result;
+        } 
     }
 
     public function login() 

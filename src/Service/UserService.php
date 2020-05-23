@@ -126,4 +126,16 @@ class UserService
         return $this->userDao->insert($userArr);
     }
 
+    public function usersearch($values)
+    {
+        $useremail = $values['useremail'];
+        $this->validator->validateSearchKey("useremail", $useremail);
+
+        if ($this->validator->num_errors > 0) {
+            return false;
+        }
+        
+        return $this->userDao->searchByEmail($useremail);
+    }
+
 }

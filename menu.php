@@ -17,7 +17,8 @@ if (!$userService->logged_in) { ?>
 
 <?php
 if ($userService->logged_in) { ?>
-    | <a href='showusers.php'>Show Users</a> 
+    | <a href='showusers.php'>Show Users</a>
+    | <a href='usersearch.php'>Search Users</a>  
     | <a href='UserApp.php?logout=1'>Logout</a>
 <?php
 }
