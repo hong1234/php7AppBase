@@ -12,9 +12,11 @@ class UserService
     
     public $logged_in; 
 
-    public $useremail;     
-    // private $userid;        
-    public $username;       
+    public $useremail;           
+    public $username;  
+    
+    const COOKIE_EXPIRE =  8640000;  //60*60*24*100 seconds = 100 days by default
+    const COOKIE_PATH = "/";  //Available in whole domain
     
     public function __construct(UserDao $userDao, UserValidator $validator) 
     {     
@@ -26,45 +28,49 @@ class UserService
 
     public function logout() 
     {
-        //if (isset($_COOKIE['cookname'])) {
-        //    setcookie("cookname", "", time() - self::COOKIE_EXPIRE, self::COOKIE_PATH);
-        //}
+        if (isset($_COOKIE['cookname'])) {
+            setcookie("cookname", "", time() - self::COOKIE_EXPIRE, self::COOKIE_PATH);
+        }
 
-        unset($_SESSION['useremail']);
+        // if (isset($_SESSION['useremail'])) 
+        // {
+        //     unset($_SESSION['useremail']);
+        // }
+
         $this->logged_in = false;
         $this->useremail = '';
         $this->username = '';
     }
 
-    private function isLogin() {
-
-        if (isset($_SESSION['useremail'])) {
-
-            $userinfo = $this->userDao->get($_SESSION['useremail']);
-            if(!$userinfo){
-                return false;
-            }
+    private function isLogin() 
+    {
+        // if (isset($_SESSION['useremail'])) 
+        // {
+        //     $userinfo = $this->userDao->get($_SESSION['useremail']);
+        //     if(!$userinfo){
+        //         return false;
+        //     }
             
-            $this->useremail = $userinfo['useremail'];
-            //$this->userid = $userinfo['id'];
-            $this->username = $userinfo['username'];
+        //     $this->useremail = $userinfo['useremail'];
+        //     $this->username = $userinfo['username'];
             
+        //     return true;
+        // }
+        
+        if (isset($_COOKIE['cookname'])) 
+        {
+            $this->useremail = $_COOKIE['cookname'];
             return true;
         }
-        
-        //if (isset($_COOKIE['cookname'])) {
-        //    $this->useremail = $_SESSION['useremail'] = $_COOKIE['cookname'];
-        //    return true;
-        //}
         
         return false;
     }
 
-    public function login($values) {
-        
+    public function login($values) 
+    {
         $useremail = $values['useremail']; 
         $password = $values['password']; 
-        //$rememberme = isset($values['rememberme']);
+        $rememberme = isset($values['rememberme']);
                 
         $this->validator->validate("useremail", $useremail);
         $this->validator->validate("password", $password);
@@ -81,15 +87,14 @@ class UserService
         if(!$userinfo){
             return false;
         }
-        
-        $this->useremail = $_SESSION['useremail'] = $userinfo['useremail'];
-        $this->userid = $userinfo['id'];
+        $this->useremail = $userinfo['useremail'];
         $this->username = $userinfo['username'];
 
-        
-        //if ($rememberme == 'true') {
-        //    setcookie("cookname", $this->useremail, time() + self::COOKIE_EXPIRE, self::COOKIE_PATH);
-        //}
+        //$_SESSION['useremail'] = $userinfo['useremail'];
+
+        if ($rememberme == 'true') {
+            setcookie("cookname", $this->useremail, time() + self::COOKIE_EXPIRE, self::COOKIE_PATH);
+        }
 
         return true;
     }

@@ -34,7 +34,7 @@ require_once 'UserApp.php';
                 <span style="color:#ff0000"><?php echo $validator->getError("password"); ?></span>
                 <br />
 
-                <input type="checkbox" name="rememberme" <?php echo ($validator->getValue("rememberme") != "")?"checked":"" ?> >
+                <input type="checkbox" name="rememberme" checked value="true">
                 <font size="2">Remember me next time </font>
                 <br />
 

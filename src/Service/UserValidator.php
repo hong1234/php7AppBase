@@ -15,12 +15,21 @@ class UserValidator {
     const PASS_LENGTH_MIN = 8;
     const PASS_LENGTH_MAX = 32;
 
+    const COOKIE_EXPIRE =  8640000;  //60*60*24*100 seconds = 100 days by default
+    const COOKIE_PATH = "/";  //Available in whole domain
+
     public function __construct() 
     {
         $this->values = $_POST;
-        if (isset($_SESSION['statusMsg'])) {
-            $this->statusMsg = $_SESSION['statusMsg'];
-            unset($_SESSION['statusMsg']);
+
+        // if (isset($_SESSION['statusMsg'])) {
+        //     $this->statusMsg = $_SESSION['statusMsg'];
+        //     unset($_SESSION['statusMsg']);
+        // }
+
+        if (isset($_COOKIE['statusMsg'])) {
+            $this->statusMsg = $_COOKIE['statusMsg'];
+            setcookie("statusMsg", "", time() - self::COOKIE_EXPIRE, self::COOKIE_PATH);
         }
     }
     

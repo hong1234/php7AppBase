@@ -17,9 +17,9 @@ require_once 'UserApp.php';
             <div>
             <?php 
                foreach ($userDao->getUsers() as $user) {
-                       echo $user['id'];?><br/>
-                 <?php echo $user['username'];?><br/>
-                 <?php echo $user['useremail'];?><br/>
+                        echo $user['id'];?><br/>
+                    <?php echo $user['username'];?><br/>
+                    <?php echo $user['useremail'];?><br/>
             <?php
                }
             ?>
