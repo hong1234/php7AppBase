@@ -59,7 +59,12 @@ class UserService
         
         if (isset($_COOKIE['cookname'])) 
         {
-            $this->useremail = $_COOKIE['cookname'];
+            $userinfo = $this->userDao->get($_COOKIE['cookname']);
+            if(!$userinfo){
+                return false;
+            }
+            $this->useremail = $userinfo['useremail'];
+            $this->username = $userinfo['username'];
             return true;
         }
         
